@@ -1,3 +1,3 @@
-import { Pipeline } from '@/pipeline';
+import { process } from './pipeline/processors/SomeProcessor';
 
-Pipeline.run();
+process();
