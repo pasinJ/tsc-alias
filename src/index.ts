@@ -8,7 +8,8 @@ import {
   isAbsolute,
   normalize,
   relative,
-  resolve
+  resolve,
+  join
 } from 'path';
 import {
   existsResolvedAlias,
@@ -53,7 +54,7 @@ export async function replaceTscAliasPaths(
 
   assert(existsSync(configFile), `Invalid file path => ${configFile}`);
 
-  let { baseUrl = './', outDir, paths } = loadConfig(configFile);
+  let { baseUrl = './', outDir, paths, baseConfigFile } = loadConfig(configFile);
   if (options.outDir) outDir = options.outDir;
 
   assert(paths, 'compilerOptions.paths is not set');
@@ -68,6 +69,10 @@ export async function replaceTscAliasPaths(
   let hasExtraModule = false;
   let configDirInOutPath: string = null;
   let relConfDirPathInOutPath: string;
+
+  const rootUrl = join(dirname(baseConfigFile), baseUrl)
+  const relConfigFileToRoot = relative(configFile, rootUrl)
+  paths = Object.fromEntries(Object.entries(paths).map(([key, val]) => [key, [[relConfigFileToRoot, val].join("/")]]))
 
   const aliases = Object.keys(paths)
     .map((alias) => {
