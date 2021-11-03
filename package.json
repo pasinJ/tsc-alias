@@ -1,5 +1,5 @@
 {
-  "name": "tsc-alias",
+  "name": "@pasinj/tsc-alias",
   "version": "1.4.0",
   "description": "Replace alias paths with relative paths after typescript compilation.",
   "main": "dist/index.js",
@@ -15,10 +15,6 @@
     "postversion": "git push && git push --tags && npm publish",
     "format": "prettier --write \"**/*.{js,ts}\""
   },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/justkey007/tsc-alias.git"
-  },
   "keywords": [
     "typescript",
     "paths",
@@ -28,12 +24,6 @@
     "compilation",
     "tsc"
   ],
-  "author": "Juskey B.",
-  "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/justkey007/tsc-alias/issues"
-  },
-  "homepage": "https://github.com/justkey007/tsc-alias.git",
   "dependencies": {
     "chokidar": "^3.5.2",
     "commander": "^8.2.0",
