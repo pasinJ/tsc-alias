@@ -13,7 +13,7 @@ export interface ITSConfig {
   baseUrl?: string;
   outDir?: string;
   paths?: { [key: string]: string[] };
-  baseConfigFile?: string
+  baseConfigFile?: string;
 }
 
 export const mapPaths = (
@@ -60,7 +60,7 @@ export const loadConfig = (file: string): ITSConfig => {
     };
   }
 
-  return {baseConfigFile: file, ...config};
+  return { baseConfigFile: file, ...config };
 };
 
 export function resolveTsConfigExtendsPath(ext: string, file: string): string {
