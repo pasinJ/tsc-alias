@@ -76,11 +76,11 @@ export async function replaceTscAliasPaths(
   let relConfDirPathInOutPath: string;
 
   const rootUrl = join(dirname(baseConfigFile), baseUrl);
-  const relConfigFileToRoot = relative(configFile, rootUrl);
+  const relConfigFileToRoot = relative(dirname(configFile), rootUrl);
   paths = Object.fromEntries(
     Object.entries(paths).map(([key, val]) => [
       key,
-      [[relConfigFileToRoot, val].join('/')]
+      [normalize([relConfigFileToRoot, val].join('/'))]
     ])
   );
 
@@ -154,16 +154,14 @@ export async function replaceTscAliasPaths(
         )
       );
 
-      const absoluteBasePath = normalizePath(
-        normalize(`${tempBasePath}/${alias.path}`)
-      );
-      if (existsResolvedAlias(absoluteBasePath)) {
-        alias.isExtra = false;
-        alias.basePath = tempBasePath;
-      } else {
+      const absoluteBasePath = normalizePath(normalize(`${configDir}/${alias.path}`))
+      // if (existsResolvedAlias(absoluteBasePath)) {
+      //   alias.isExtra = false;
+      //   alias.basePath = tempBasePath;
+      // } else {
         alias.isExtra = true;
         alias.basePath = absoluteBasePath;
-      }
+      // }
     } else if (hasExtraModule) {
       alias.isExtra = false;
       alias.basePath = normalizePath(
